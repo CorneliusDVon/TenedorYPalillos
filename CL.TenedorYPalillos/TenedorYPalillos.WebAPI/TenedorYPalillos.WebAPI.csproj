@@ -10,4 +10,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TenedorYPalillos.Utils\TenedorYPalillos.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="log\ROOT\" />
+  </ItemGroup>
+
 </Project>

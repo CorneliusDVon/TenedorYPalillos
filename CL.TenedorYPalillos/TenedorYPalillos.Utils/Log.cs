@@ -24,15 +24,13 @@ namespace TenedorYPalillos.Utils
         private static void CargaConfiguracion(int level)
         {
 
-            //ICollection<string> collection = new List<string>();
-
             string path = string.Empty;
 
             try
             {
 
                 Logger = LogManager.GetCurrentClassLogger();
-                LoggingConfiguration config = new LoggingConfiguration();
+                LoggingConfiguration config = new();
 
 
                 //D:\DESARROLLO\.NET CORE\LLEGOCARTA\DEV_UNIT_TEST
@@ -41,15 +39,13 @@ namespace TenedorYPalillos.Utils
                 path = Path.Combine(Directory.GetCurrentDirectory(), "");
 
 
-                var stop = 0;
-
-                FileTarget ft = new FileTarget()
+                FileTarget fileTarget = new()
                 {
                     Name = "Log",
                     Encoding = Encoding.UTF8,
-                    Layout = "[${longdate}] [${logger}] ${message:withexception=true}",//"${logger} ${longdate} ${level:uppercase=true} ${message:withexception=true}",
+                    Layout = "[${longdate}] ${message:withexception=true}",//"${logger} ${longdate} ${level:uppercase=true} ${message:withexception=true}",
                     LineEnding = LineEndingMode.CR,
-                    FileName = path + @"\log\" + LogInfo.Society + @"_${level:uppercase=true}_" + DateTime.Now.ToShortDateString().Replace("-", "_") + ".log",
+                    FileName = path + @"\log\" + LogInfo.Society + @"\${level:uppercase=true}_" + DateTime.Now.ToShortDateString().Replace("-", "_") + ".log",
                     FileAttributes = Win32FileAttributes.Normal,
                     CreateDirs = true,
                     ConcurrentWrites = true,
@@ -83,56 +79,31 @@ namespace TenedorYPalillos.Utils
                     //WriteBom = "Boolean",
                 };
 
-                /*
-                "ListaDistribucion": [
-                  {
-                    //NOTIFICACION CIERRE DE CAJA
-                    "Tipo": 1,
-                    "plantilla": "NotificacionCierreCaja.html",
-                    "Remitente": 
-                    [
-                      "noreply_ecloud@dominio.cl"
-                    ],
-                    "Receptor": [
-                      {
-                        "NombreReceptor": "",
-                        "EmailReceptor": ""
-                      },
-                      {
-                        "NombreReceptor": "",
-                        "EmailReceptor": ""
-                      }
-                    ]
-                  }
-                ]
-                */
+                //MailTarget mailTarget = new()
+                //{
+                //SmtpServer = "mail.cardinale.cl",
+                //SmtpPort=25,
+                //SmtpUserName= "calzado@cardinale.cl",
+                //SmtpPassword= "calzado1831",
+                //SmtpAuthentication = SmtpAuthenticationMode.Basic,
+                //EnableSsl = false,
+                //Html = true,
+                //Encoding = Encoding.UTF8,
+                //Layout = "${message}",
+                //Priority = "High", 
+                //From = "Integracion@e-cloud.cl",
+                //To = "jose.toro.salas@gmail.com",
+                //Subject = "MENSAJE DE NOTIFICACION DE ERROR",
+                //Body = "${message}${newline}"
+                //};
 
-                MailTarget mailTarget = new MailTarget()
-                {
-                    //SmtpServer = "mail.cardinale.cl",
-                    //SmtpPort=25,
-                    //SmtpUserName= "calzado@cardinale.cl",
-                    //SmtpPassword= "calzado1831",
-                    //SmtpAuthentication = SmtpAuthenticationMode.Basic,
-                    //EnableSsl = false,
-                    //Html = true,
-                    //Encoding = Encoding.UTF8,
-                    //Layout = "${message}",
-                    //Priority = "High", 
-                    //From = "Integracion@e-cloud.cl",
-                    //To = "jose.toro.salas@gmail.com",
-                    //Subject = "MENSAJE DE NOTIFICACION DE ERROR",
-                    //Body = "${message}${newline}"
-                };
-
-
-                BufferingTargetWrapper buffer = new BufferingTargetWrapper(mailTarget, 5);
+                //BufferingTargetWrapper buffer = new(mailTarget, 5);
                 //SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Error);
 
 
                 //ConsoleTarget consoleTarget = new ConsoleTarget()
                 //{
-                //    Name = "LogConsole",
+                //    Name = "LogConsole",                    
                 //};
 
 
@@ -143,31 +114,31 @@ namespace TenedorYPalillos.Utils
                 switch (level)
                 {
                     case 1:
-                        SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Info);
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, ft));
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, mailTarget));
-                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, ct));
+                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, fileTarget));
+                        //SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Info);
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, mailTarget));
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, consoleTarget));
                         break;
 
                     case 2:
-                        SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Error);
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, ft));
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, mailTarget));
-                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, ct));
+                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, fileTarget));
+                        //SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Error);
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, mailTarget));
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, consoleTarget));
                         break;
 
                     case 3:
-                        SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Debug);
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, ft));
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, mailTarget));
-                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, ct));
+                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, fileTarget));
+                        //SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Debug);
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, mailTarget));
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, consoleTarget));
                         break;
 
                     case 4:
-                        SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Trace);
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, ft));
-                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, mailTarget));
-                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, ct));
+                        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, fileTarget));
+                        //SimpleConfigurator.ConfigureForTargetLogging(buffer, LogLevel.Trace);
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, mailTarget));
+                        //config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, consoleTarget));
                         break;
 
                     default:
@@ -177,8 +148,9 @@ namespace TenedorYPalillos.Utils
                 Logger.Factory.Configuration = config;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var stop = 0;
             }
 
         }
@@ -192,8 +164,9 @@ namespace TenedorYPalillos.Utils
                 CargaConfiguracion(1);
                 Logger.Info(request.ToString());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var stop = 0;
             }
         }
 

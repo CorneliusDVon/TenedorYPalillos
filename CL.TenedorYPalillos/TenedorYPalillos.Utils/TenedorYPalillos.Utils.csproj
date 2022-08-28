@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,13 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TenedorYPalillos.Model\TenedorYPalillos.Model.csproj" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="NLog">
-      <HintPath>..\NLog.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\TenedorYPalillos.Model\TenedorYPalillos.Model.csproj" />
   </ItemGroup>
 
 </Project>
