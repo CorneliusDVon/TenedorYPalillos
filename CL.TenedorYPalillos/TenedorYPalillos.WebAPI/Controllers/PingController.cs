@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace TenedorYPalillos.WebAPI.Controllers
 {
@@ -19,9 +20,12 @@ namespace TenedorYPalillos.WebAPI.Controllers
         [HttpGet(Name = "Ping")]
         public ActionResult<string> Get()
         {
-            string url = Request.Scheme + "://" + Request.Host + "" + Request.Path + "" + Url.Content("~");
-
-            return url;
+            return new UriBuilder(
+                Request.Scheme, 
+                Request.Host.Host.ToString(),
+                Request.Host.Port.Value,
+                Request.Path,
+                Url.Content("~")).ToString();
         }
 
     }
