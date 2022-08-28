@@ -8,12 +8,12 @@ namespace TenedorYPalillos.WebAPI.Controllers
     public class PingController : ControllerBase
     {
 
-        private readonly ILogger<PingController> _logger;
+        //private readonly ILogger<PingController> _logger;
 
-        public PingController(ILogger<PingController> logger)
-        {
-            _logger = logger;
-        }
+        //public PingController(ILogger<PingController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
 
         [HttpGet(Name = "Ping")]
