@@ -6,8 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-<<<<<<< HEAD
-=======
   <ItemGroup>
     <ProjectReference Include="..\TenedorYPalillos.Model\TenedorYPalillos.Model.csproj" />
   </ItemGroup>
@@ -18,5 +16,4 @@
     </Reference>
   </ItemGroup>
 
->>>>>>> 27-08-2022T22:37
 </Project>
