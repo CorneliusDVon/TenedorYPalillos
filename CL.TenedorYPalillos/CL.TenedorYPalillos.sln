@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenedorYPalillos.Model", "TenedorYPalillos.Model\TenedorYPalillos.Model.csproj", "{DFAEBB09-5A52-418E-882B-ED15D0576499}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenedorYPalillos.Model", "TenedorYPalillos.Model\TenedorYPalillos.Model.csproj", "{DFAEBB09-5A52-418E-882B-ED15D0576499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenedorYPalillos.APIController", "TenedorYPalillos.APIController\TenedorYPalillos.APIController.csproj", "{6128EB68-6676-4BBD-83CC-0177EFB61F4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenedorYPalillos.APIController", "TenedorYPalillos.APIController\TenedorYPalillos.APIController.csproj", "{6128EB68-6676-4BBD-83CC-0177EFB61F4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenedorYPalillos.BaseController", "TenedorYPalillos.BaseController\TenedorYPalillos.BaseController.csproj", "{967A1507-983E-44D5-9F8A-4C34011F212A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenedorYPalillos.BaseController", "TenedorYPalillos.BaseController\TenedorYPalillos.BaseController.csproj", "{967A1507-983E-44D5-9F8A-4C34011F212A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenedorYPalillos.Connection", "TenedorYPalillos.Connection\TenedorYPalillos.Connection.csproj", "{9A288E97-2C24-45EA-831D-F403A898F4D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenedorYPalillos.Connection", "TenedorYPalillos.Connection\TenedorYPalillos.Connection.csproj", "{9A288E97-2C24-45EA-831D-F403A898F4D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenedorYPalillos.Utils", "TenedorYPalillos.Utils\TenedorYPalillos.Utils.csproj", "{AB37B584-84A5-46AD-8F11-D17B9BB82DF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenedorYPalillos.Utils", "TenedorYPalillos.Utils\TenedorYPalillos.Utils.csproj", "{AB37B584-84A5-46AD-8F11-D17B9BB82DF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenedorYPalillos.WebAPI", "TenedorYPalillos.WebAPI\TenedorYPalillos.WebAPI.csproj", "{C1D13505-C77F-48F8-A263-D5DABB1F42D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{AB37B584-84A5-46AD-8F11-D17B9BB82DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB37B584-84A5-46AD-8F11-D17B9BB82DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB37B584-84A5-46AD-8F11-D17B9BB82DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D13505-C77F-48F8-A263-D5DABB1F42D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D13505-C77F-48F8-A263-D5DABB1F42D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D13505-C77F-48F8-A263-D5DABB1F42D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D13505-C77F-48F8-A263-D5DABB1F42D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
