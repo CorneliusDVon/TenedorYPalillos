@@ -81,18 +81,18 @@ namespace TenedorYPalillos.Utils
 
                 //MailTarget mailTarget = new()
                 //{
-                //SmtpServer = "mail.cardinale.cl",
-                //SmtpPort=25,
-                //SmtpUserName= "calzado@cardinale.cl",
-                //SmtpPassword= "calzado1831",
+                //SmtpServer = "",
+                //SmtpPort=0,
+                //SmtpUserName= "",
+                //SmtpPassword= "",
                 //SmtpAuthentication = SmtpAuthenticationMode.Basic,
                 //EnableSsl = false,
                 //Html = true,
                 //Encoding = Encoding.UTF8,
                 //Layout = "${message}",
                 //Priority = "High", 
-                //From = "Integracion@e-cloud.cl",
-                //To = "jose.toro.salas@gmail.com",
+                //From = "",
+                //To = "",
                 //Subject = "MENSAJE DE NOTIFICACION DE ERROR",
                 //Body = "${message}${newline}"
                 //};
