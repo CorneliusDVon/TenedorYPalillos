@@ -97,11 +97,6 @@ namespace TenedorYPalillos.Model.DTO.Resto
             return JsonConvert.SerializeObject(base.MemberwiseClone());
         }
 
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(base.MemberwiseClone());
-        }
-
     }
 
 
