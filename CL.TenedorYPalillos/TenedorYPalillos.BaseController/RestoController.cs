@@ -19,7 +19,7 @@ namespace LLegoCarta.Controller
         }
 
 
-        public List<RestoDTOResponse> RestoDTOList { get => _restoDTOList; set => _restoDTOList = value; }
+        private List<RestoDTOResponse> RestoDTOList { get => _restoDTOList; set => _restoDTOList = value; }
 
 
 
@@ -30,6 +30,7 @@ namespace LLegoCarta.Controller
             {
 
                 RestoDTOList = new List<RestoDTOResponse>();
+
 
                 using (RestoContext db = new RestoContext())
                 {
@@ -88,6 +89,7 @@ namespace LLegoCarta.Controller
 
                 RestoDTOList = new List<RestoDTOResponse>();
 
+
                 using (RestoContext db = new RestoContext())
                 {
 
@@ -134,7 +136,6 @@ namespace LLegoCarta.Controller
             }
 
             return RestoDTOList;
-
 
         }
 
