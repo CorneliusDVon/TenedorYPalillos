@@ -1,23 +1,20 @@
-﻿using LLegoCarta.DBConnection;
-using TenedorYPalillos.Model.DAO.Resto;
-using TenedorYPalillos.Utils;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using TenedorYPalillos.Model.DAO.RestoEntity;
 
 
-namespace TenedorYPalillosDBContext
+namespace TenedorYPalillos.Connection.Context
 {
 
-    public class TenedorYPalillosContext : DbContext
+    public class RestoContext : DbContext
     {
 
-        //private const string _cadenaConexion = "Data Source=AORUSX570; Initial Catalog=LLEGOCARTA; User ID=sa; Password=260786;";
+        private string _rutSociedad;
         private DbSet<Resto> _resto;
         private DbSet<Resto_Tipo_Resto> _restoTipoResto;
         private DbSet<Tipo_Resto> _tipoResto;
-        private string _rutSociedad;
 
 
-        public TenedorYPalillosContext()
+        public RestoContext()
         {
 
         }
@@ -39,15 +36,10 @@ namespace TenedorYPalillosDBContext
 
             try
             {
-
                 //IMPLEMENTAR BUSQUEDA DE BASE DE DATOS POR USUARIO SI LO AMERITA
                 baseDatosSociedad = "TENEDORYPALILLOS";
 
-                cadenaConexion = "Data Source=" + VariablesConexion.Instancia + "; Initial Catalog=" + baseDatosSociedad + "; User ID=" + VariablesConexion.Usuario + "; Password=" + VariablesConexion.Password + ";";
-
-
-                //Log.Debug("Msg:[Se ha cargado la informacion para la conexion a la base de datos] Det:[" + RutSociedad + "]", RutSociedad);
-
+                cadenaConexion = VariablesConexion.CadenaConexion.Trim().Replace("{{BaseDatos}}", baseDatosSociedad.Trim());
 
                 dbContextOptionsBuilder.UseSqlServer(cadenaConexion);
 
@@ -58,6 +50,7 @@ namespace TenedorYPalillosDBContext
             }
 
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
