@@ -3,7 +3,8 @@ using TenedorYPalillos.Model.DTO.Resto;
 using TenedorYPalillos.Model.DAO.RestoEntity;
 using TenedorYPalillos.Connection.Context;
 
-namespace LLegoCarta.Controller
+
+namespace TenedorYPalillos.BaseController
 {
 
     [Serializable]

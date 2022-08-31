@@ -1,5 +1,5 @@
-﻿using LLegoCarta.Controller;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using TenedorYPalillos.BaseController;
 using TenedorYPalillos.Model.DTO.Resto;
 
 
