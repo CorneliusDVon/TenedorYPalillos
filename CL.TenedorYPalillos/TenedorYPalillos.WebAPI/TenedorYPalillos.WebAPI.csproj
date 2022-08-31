@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TenedorYPalillos.BaseController\TenedorYPalillos.BaseController.csproj" />
     <ProjectReference Include="..\TenedorYPalillos.Utils\TenedorYPalillos.Utils.csproj" />
   </ItemGroup>
 
