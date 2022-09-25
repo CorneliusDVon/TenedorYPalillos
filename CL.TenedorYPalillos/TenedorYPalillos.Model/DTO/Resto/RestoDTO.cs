@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MediatR;
+using Newtonsoft.Json;
+
 
 namespace TenedorYPalillos.Model.DTO.Resto
 {
@@ -7,9 +9,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
     #region "REQUEST"
 
 
-    [JsonObject]
-    [Serializable]
-    public class RestoDTORequest
+    public class RestoDTORequest : IRequest
     {
 
         private string _sociedad;
@@ -59,9 +59,8 @@ namespace TenedorYPalillos.Model.DTO.Resto
 
     }
 
-    [JsonObject]
-    [Serializable]
-    public class TipoRestoDTORequest
+
+    public class TipoRestoDTORequest : IRequest
     {
 
         private long _iD;
@@ -109,9 +108,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
     #region "RESPONSE"
 
 
-    [JsonObject]
-    [Serializable]
-    public class RestoDTOResponse
+    public class RestoDTOResponse : IRequest
     {
 
         private long _iD;
@@ -155,9 +152,8 @@ namespace TenedorYPalillos.Model.DTO.Resto
 
     }
 
-    [JsonObject]
-    [Serializable]
-    public class TipoRestoDTOResponse
+
+    public class TipoRestoDTOResponse : IRequest
     {
 
         private long _iD;

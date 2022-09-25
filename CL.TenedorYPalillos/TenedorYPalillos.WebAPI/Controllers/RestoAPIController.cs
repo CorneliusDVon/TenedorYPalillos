@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using TenedorYPalillos.BaseController;
+using TenedorYPalillos.Model.DAO.RestoEntity;
 using TenedorYPalillos.Model.DTO.Resto;
 
 
@@ -11,68 +13,127 @@ namespace TenedorYPalillos.WebAPI.Controllers
     public class RestoAPIController : ControllerBase
     {
 
-        private readonly ILogger<PingController> _logger;
+        private readonly IMediator _mediador;
 
 
-        public RestoAPIController(ILogger<PingController> logger)
+        public RestoAPIController(IMediator mediator)
         {
-            _logger = logger;
+            _mediador = mediator;
         }
 
 
 
-        // GET: RestoController
-        [HttpGet]
-        public ActionResult<List<RestoDTOResponse>> Obtiene()
+
+
+        [HttpGet(Name = "GetAll", Order = 1)]
+        public async Task<ActionResult<List<RestoDTOResponse>>> Obtiene()
         {
-            return new RestoController().CargaTodoResto(new RestoDTORequest()
+
+            try
             {
-                Sociedad = string.Empty
-            });
-        }
-
-
-        [HttpGet("{sociedad}/{id}")]
-        public ActionResult<List<RestoDTOResponse>> ObtieneID(string sociedad, int id)
-        {
-            return new RestoController().CargaTodoResto(new RestoDTORequest()
+                return await new RestoController().CargaTodoResto(new RestoDTORequest()
+                {
+                    Sociedad = string.Empty
+                });
+            }
+            catch (Exception ex)
             {
-                Sociedad = sociedad,
-                ID = id
-            });
+                throw;
+            }
+
         }
 
 
-        [HttpPost]
-        public ActionResult<List<RestoDTOResponse>> Actualiza(RestoDTORequest resto)
+        [HttpGet(template: "{sociedad}/{id}", Name = "GetID", Order = 2)]
+        public async Task<ActionResult<List<RestoDTOResponse>>> ObtieneID(string sociedad, int id)
         {
-            return new RestoController().CargaTodoResto(new RestoDTORequest()
+
+            try
             {
-                Sociedad = string.Empty
-            });
+                return await new RestoController().CargaRestoPorID(new RestoDTORequest()
+                {
+                    Sociedad = sociedad,
+                    ID = id
+                });
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
 
 
-        [HttpPut]
-        public ActionResult<List<RestoDTOResponse>> Crea(RestoDTORequest resto)
+        [HttpPost(Name = "UpdateID", Order = 3)]
+        public async Task<ActionResult<List<RestoDTOResponse>>> Actualiza(RestoDTORequest request)
         {
-            return new RestoController().CargaTodoResto(new RestoDTORequest()
+
+            try
             {
-                Sociedad = string.Empty
-            });
+                return await new RestoController().ActualizaRestoPorID(request);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
 
 
-        [HttpDelete]
-        public ActionResult<List<RestoDTOResponse>> Elimina(int id)
+        [HttpPut(Name = "Insert", Order = 4)]
+        public async Task<ActionResult<List<RestoDTOResponse>>> Crea(RestoDTORequest resto)
         {
-            return new RestoController().CargaTodoResto(new RestoDTORequest()
+
+            try
             {
-                Sociedad = string.Empty
-            });
+                return await new RestoController().CreaResto(resto);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
+
+
+        [HttpDelete(template: "{sociedad}/{id}", Name = "DeleteID", Order = 5)]
+        public async Task<ActionResult<List<RestoDTOResponse>>> Elimina(string sociedad, int id)
+        {
+
+            try
+            {
+                return await new RestoController().EliminaRestoPorID(new RestoDTORequest()
+                {
+                    Sociedad = sociedad,
+                    ID=id
+                });
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+
+
+        //[HttpPut(Name = "Crea Nuevo Restaurant", Order = 4)]
+        //public async Task<Unit> CreaHandler(RestoDTORequest resto)
+        //{
+
+        //    try
+        //    {
+        //        return await _mediador.Send(resto);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+
+        //}
 
 
 
     }
+
 }
