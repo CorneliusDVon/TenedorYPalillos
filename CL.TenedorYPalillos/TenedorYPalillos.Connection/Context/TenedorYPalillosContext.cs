@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TenedorYPalillos.Model.DAO.RestoEntity;
+using TenedorYPalillos.Model.DAO.UsuarioEntity;
 
 
 namespace TenedorYPalillos.Connection.Context
 {
 
-    public class RestoContext : DbContext
-    {
+    public class TenedorYPalillosContext : IdentityDbContext<UsuarioEntityDAO>
+    {        
 
         private string _rutSociedad;
         private DbSet<Resto> _resto;
@@ -14,9 +16,9 @@ namespace TenedorYPalillos.Connection.Context
         private DbSet<Tipo_Resto> _tipoResto;
 
 
-        public RestoContext()
+        public TenedorYPalillosContext()
         {
-
+            //PS D:\DESARROLLO\.NET CORE\GITHUB\repository\TenedorYPalillos\CL.TenedorYPalillos\TenedorYPalillos.Connection> dotnet ef --startup-project ../TenedorYPalillos.Connection migrations add TenedorYPalillosInicial -c TenedorYPalillosContext
         }
 
 
@@ -56,6 +58,8 @@ namespace TenedorYPalillos.Connection.Context
         {
             //SE DENOTA QUE LA TABLA Resto_Tipo_Resto POSEE UNA CLAVE PRIMARIA COMPUESTA
             modelBuilder.Entity<Resto_Tipo_Resto>().HasKey(rtr => new { rtr.ID_Resto, rtr.ID_Tipo_Resto });
+            
+            base.OnModelCreating(modelBuilder);
         }
 
 

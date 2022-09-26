@@ -26,7 +26,11 @@ namespace TenedorYPalillos.Model.DAO.RestoEntity
 
         [Key]
         public long ID { get => _iD; set => _iD = value; }
+
+        [Column(TypeName = "nvarchar(200)")]
         public string Nombre { get => _nombre; set => _nombre = value; }
+
+        [Column(TypeName = "nvarchar(200)")]
         public string Descripcion { get => _descripcion; set => _descripcion = value; }
 
         [ForeignKey("ID_Resto")]
@@ -84,6 +88,8 @@ namespace TenedorYPalillos.Model.DAO.RestoEntity
 
         [Key]
         public long ID { get => _iD; set => _iD = value; }
+
+        [Column(TypeName = "nvarchar(200)")]
         public string Nombre { get => _nombre; set => _nombre = value; }
 
         [ForeignKey("ID_Tipo_Resto")]

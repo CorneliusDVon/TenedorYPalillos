@@ -14,7 +14,7 @@ namespace TenedorYPalillos.BaseController
 
 
         private List<RestoDTOResponse> _restoDTOList;
-        private readonly RestoContext _restoContext;
+        private readonly TenedorYPalillosContext _restoContext;
 
 
 
@@ -23,7 +23,7 @@ namespace TenedorYPalillos.BaseController
             RestoDTOList = new List<RestoDTOResponse>();
         }
 
-        public RestoController(RestoContext restoContext)
+        public RestoController(TenedorYPalillosContext restoContext)
         {
             _restoContext = restoContext;
         }
@@ -42,7 +42,7 @@ namespace TenedorYPalillos.BaseController
             try
             {
 
-                using (RestoContext db = new RestoContext())
+                using (TenedorYPalillosContext db = new TenedorYPalillosContext())
                 {
 
                     db.RutSociedad = request.Sociedad.Trim();
@@ -98,7 +98,7 @@ namespace TenedorYPalillos.BaseController
             try
             {
 
-                using (RestoContext db = new RestoContext())
+                using (TenedorYPalillosContext db = new TenedorYPalillosContext())
                 {
 
                     db.RutSociedad = request.Sociedad.Trim();
@@ -156,7 +156,7 @@ namespace TenedorYPalillos.BaseController
             try
             {
 
-                using (RestoContext db = new RestoContext())
+                using (TenedorYPalillosContext db = new TenedorYPalillosContext())
                 {
 
                     db.RutSociedad = request.Sociedad.Trim();
@@ -242,7 +242,7 @@ namespace TenedorYPalillos.BaseController
             try
             {
 
-                using (RestoContext db = new RestoContext())
+                using (TenedorYPalillosContext db = new TenedorYPalillosContext())
                 {
 
                     db.RutSociedad = request.Sociedad.Trim();
@@ -327,7 +327,7 @@ namespace TenedorYPalillos.BaseController
             try
             {
 
-                using (RestoContext db = new RestoContext())
+                using (TenedorYPalillosContext db = new TenedorYPalillosContext())
                 {
 
 

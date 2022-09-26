@@ -1,6 +1,8 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TenedorYPalillos.BaseController;
+using TenedorYPalillos.Connection.Context;
 
 
 namespace TenedorYPalillos.WebAPI
@@ -24,20 +26,39 @@ namespace TenedorYPalillos.WebAPI
             //builder.Services.AddMediatR(typeof(RestoDTORequest));
             //builder.Services.AddOptions();
 
-            //AGREGA UN DBCONTEXT EN CASO DE USO DE HANDLERS
-            //builder.Services.AddDbContext<RestoContext>();
+
+            //REGISTRA EL CONTEXTO DE LA BASE DE DATOS
+            builder.Services.AddDbContext<TenedorYPalillosContext>();
 
 
             //CONGIFURACION DE SWAGGER/OpenAPI [https://aka.ms/aspnetcore/swashbuckle]
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
             WebApplication app = builder.Build();
+
+
+            //GENERA LAS TABLAS EN LA BASE DE DATOS SEGUN EL MODELO DE DATOS
+            using (IServiceScope enviroment = app.Services.CreateScope())
+            {
+
+                //USAR COMANDO PARA CREAR ARCHIVOS DE MIGRACION USANDO DBCONTEXT
+                //PS D:\DESARROLLO\.NET CORE\GITHUB\repository\TenedorYPalillos\CL.TenedorYPalillos\TenedorYPalillos.Connection> dotnet ef --startup-project ../TenedorYPalillos.Connection migrations add TenedorYPalillosInicial -c TenedorYPalillosContext
+
+                IServiceProvider serices = enviroment.ServiceProvider;
+
+                TenedorYPalillosContext context = serices.GetRequiredService<TenedorYPalillosContext>();
+                context.Database.Migrate();
+
+            }
 
 
             //CONFIGURAR AMBIENTE DE SOLICITUDES HTTP.
             if (app.Environment.IsDevelopment())
-            {                
+            {           
+                
+                //SWAGGER
                 app.UseSwagger();
                 app.UseSwaggerUI();
                 //app.UseSwaggerUI(options =>
@@ -47,7 +68,6 @@ namespace TenedorYPalillos.WebAPI
                 //});
 
             }
-
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
