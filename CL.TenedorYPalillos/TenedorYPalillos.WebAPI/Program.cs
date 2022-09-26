@@ -1,9 +1,7 @@
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TenedorYPalillos.BaseController;
-using TenedorYPalillos.Connection.Context;
-using TenedorYPalillos.Model.DTO.Resto;
+
 
 namespace TenedorYPalillos.WebAPI
 {
@@ -14,35 +12,42 @@ namespace TenedorYPalillos.WebAPI
         public static void Main(string[] args)
         {
 
-
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            //Add services to the container.
+
+            //AGREGA CONTROLADORAS/APIS/SERVICIOS AL CONTENEDOR.
             builder.Services.AddControllers();
+
 
             //REGISTRO DE MEDIATR
             builder.Services.AddMediatR(typeof(RestoController).GetTypeInfo().Assembly);
-            builder.Services.AddMediatR(typeof(RestoDTORequest));
-            builder.Services.AddOptions();
+            //builder.Services.AddMediatR(typeof(RestoDTORequest));
+            //builder.Services.AddOptions();
 
-            //Agregar el Context si se va a utilizr un Handler
-            builder.Services.AddDbContext<RestoContext>();
-
-
+            //AGREGA UN DBCONTEXT EN CASO DE USO DE HANDLERS
+            //builder.Services.AddDbContext<RestoContext>();
 
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            //CONGIFURACION DE SWAGGER/OpenAPI [https://aka.ms/aspnetcore/swashbuckle]
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             WebApplication app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+
+            //CONFIGURAR AMBIENTE DE SOLICITUDES HTTP.
             if (app.Environment.IsDevelopment())
             {                
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                //app.UseSwaggerUI(options =>
+                //{
+                //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                //    options.RoutePrefix = string.Empty;
+                //});
+
             }
+
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
