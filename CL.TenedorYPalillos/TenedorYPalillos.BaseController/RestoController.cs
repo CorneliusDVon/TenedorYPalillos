@@ -9,18 +9,18 @@ namespace TenedorYPalillos.BaseController
 {
 
 
-    public class RestoController : IRequestHandler<RestoDTORequest>
+    public class RestoController : IRequestHandler<RestoRequestDTO, RestoResponseDTO>
     {
 
 
-        private List<RestoDTOResponse> _restoDTOList;
+        private List<RestoResponseDTO> _restoDTOList;
         private readonly TenedorYPalillosContext _restoContext;
 
 
 
         public RestoController()
         {
-            RestoDTOList = new List<RestoDTOResponse>();
+            RestoDTOList = new List<RestoResponseDTO>();
         }
 
         public RestoController(TenedorYPalillosContext restoContext)
@@ -30,13 +30,13 @@ namespace TenedorYPalillos.BaseController
 
 
 
-        private List<RestoDTOResponse> RestoDTOList { get => _restoDTOList; set => _restoDTOList = value; }
+        private List<RestoResponseDTO> RestoDTOList { get => _restoDTOList; set => _restoDTOList = value; }
 
 
 
 
 
-        public async Task<List<RestoDTOResponse>> CargaTodoResto(RestoDTORequest request)
+        public async Task<List<RestoResponseDTO>> CargaTodoResto(RestoRequestDTO request)
         {
 
             try
@@ -57,16 +57,16 @@ namespace TenedorYPalillos.BaseController
                     foreach (Resto restos in resto)
                     {
 
-                        RestoDTOResponse response = new RestoDTOResponse();
+                        RestoResponseDTO response = new RestoResponseDTO();
 
                         response.ID = restos.ID;
                         response.Nombre = restos.Nombre;
                         response.Descripcion = restos.Descripcion;
-                        response.TipoResto = new List<TipoRestoDTOResponse>();
+                        response.TipoResto = new List<TipoRestoResponseDTO>();
 
                         foreach (Resto_Tipo_Resto restoTipoResto in restos.Resto_Tipo_Resto)
                         {
-                            TipoRestoDTOResponse restoTipoRestoDTO = new TipoRestoDTOResponse()
+                            TipoRestoResponseDTO restoTipoRestoDTO = new TipoRestoResponseDTO()
                             {
                                 ID = restoTipoResto.Tipo_Resto.ID,
                                 Nombre = restoTipoResto.Tipo_Resto.Nombre
@@ -92,7 +92,7 @@ namespace TenedorYPalillos.BaseController
         }
 
 
-        public async Task<List<RestoDTOResponse>> CargaRestoPorID(RestoDTORequest request)
+        public async Task<List<RestoResponseDTO>> CargaRestoPorID(RestoRequestDTO request)
         {
 
             try
@@ -114,16 +114,16 @@ namespace TenedorYPalillos.BaseController
                     foreach (Resto restos in resto)
                     {
 
-                        RestoDTOResponse oResto = new RestoDTOResponse();
+                        RestoResponseDTO oResto = new RestoResponseDTO();
 
                         oResto.ID = restos.ID;
                         oResto.Nombre = restos.Nombre;
                         oResto.Descripcion = restos.Descripcion;
-                        oResto.TipoResto = new List<TipoRestoDTOResponse>();
+                        oResto.TipoResto = new List<TipoRestoResponseDTO>();
 
                         foreach (Resto_Tipo_Resto restoTipoResto in restos.Resto_Tipo_Resto)
                         {
-                            TipoRestoDTOResponse restoTipoRestoDTO = new TipoRestoDTOResponse()
+                            TipoRestoResponseDTO restoTipoRestoDTO = new TipoRestoResponseDTO()
                             {
                                 ID = restoTipoResto.Tipo_Resto.ID,
                                 Nombre = restoTipoResto.Tipo_Resto.Nombre
@@ -148,7 +148,7 @@ namespace TenedorYPalillos.BaseController
         }
 
 
-        public async Task<List<RestoDTOResponse>> ActualizaRestoPorID(RestoDTORequest request)
+        public async Task<List<RestoResponseDTO>> ActualizaRestoPorID(RestoRequestDTO request)
         {
 
             int retorno = 0;
@@ -193,16 +193,16 @@ namespace TenedorYPalillos.BaseController
                             foreach (Resto restoResponse in resto)
                             {
 
-                                RestoDTOResponse oResto = new RestoDTOResponse();
+                                RestoResponseDTO oResto = new RestoResponseDTO();
 
                                 oResto.ID = restoResponse.ID;
                                 oResto.Nombre = restoResponse.Nombre;
                                 oResto.Descripcion = restoResponse.Descripcion;
-                                oResto.TipoResto = new List<TipoRestoDTOResponse>();
+                                oResto.TipoResto = new List<TipoRestoResponseDTO>();
 
                                 foreach (Resto_Tipo_Resto restoTipoResto in restoResponse.Resto_Tipo_Resto)
                                 {
-                                    TipoRestoDTOResponse restoTipoRestoDTO = new TipoRestoDTOResponse()
+                                    TipoRestoResponseDTO restoTipoRestoDTO = new TipoRestoResponseDTO()
                                     {
                                         ID = restoTipoResto.Tipo_Resto.ID,
                                         Nombre = restoTipoResto.Tipo_Resto.Nombre
@@ -234,7 +234,7 @@ namespace TenedorYPalillos.BaseController
         }
 
 
-        public async Task<List<RestoDTOResponse>> EliminaRestoPorID(RestoDTORequest request)
+        public async Task<List<RestoResponseDTO>> EliminaRestoPorID(RestoRequestDTO request)
         {
 
             int retorno = 0;
@@ -279,16 +279,16 @@ namespace TenedorYPalillos.BaseController
                             foreach (Resto restoResponse in resto)
                             {
 
-                                RestoDTOResponse oResto = new RestoDTOResponse();
+                                RestoResponseDTO oResto = new RestoResponseDTO();
 
                                 oResto.ID = restoResponse.ID;
                                 oResto.Nombre = restoResponse.Nombre;
                                 oResto.Descripcion = restoResponse.Descripcion;
-                                oResto.TipoResto = new List<TipoRestoDTOResponse>();
+                                oResto.TipoResto = new List<TipoRestoResponseDTO>();
 
                                 foreach (Resto_Tipo_Resto restoTipoResto in restoResponse.Resto_Tipo_Resto)
                                 {
-                                    TipoRestoDTOResponse restoTipoRestoDTO = new TipoRestoDTOResponse()
+                                    TipoRestoResponseDTO restoTipoRestoDTO = new TipoRestoResponseDTO()
                                     {
                                         ID = restoTipoResto.Tipo_Resto.ID,
                                         Nombre = restoTipoResto.Tipo_Resto.Nombre
@@ -319,7 +319,7 @@ namespace TenedorYPalillos.BaseController
         }
 
 
-        public async Task<List<RestoDTOResponse>> CreaResto(RestoDTORequest request)
+        public async Task<List<RestoResponseDTO>> CreaResto(RestoRequestDTO request)
         {
 
             int retorno = 0;
@@ -354,16 +354,16 @@ namespace TenedorYPalillos.BaseController
                         foreach (Resto restoResponse in restos)
                         {
 
-                            RestoDTOResponse oResto = new RestoDTOResponse();
+                            RestoResponseDTO oResto = new RestoResponseDTO();
 
                             oResto.ID = restoResponse.ID;
                             oResto.Nombre = restoResponse.Nombre;
                             oResto.Descripcion = restoResponse.Descripcion;
-                            oResto.TipoResto = new List<TipoRestoDTOResponse>();
+                            oResto.TipoResto = new List<TipoRestoResponseDTO>();
 
                             foreach (Resto_Tipo_Resto restoTipoResto in restoResponse.Resto_Tipo_Resto)
                             {
-                                TipoRestoDTOResponse restoTipoRestoDTO = new TipoRestoDTOResponse()
+                                TipoRestoResponseDTO restoTipoRestoDTO = new TipoRestoResponseDTO()
                                 {
                                     ID = restoTipoResto.Tipo_Resto.ID,
                                     Nombre = restoTipoResto.Tipo_Resto.Nombre
@@ -398,8 +398,9 @@ namespace TenedorYPalillos.BaseController
 
 
 
-        public async Task<Unit> Handle(RestoDTORequest request, CancellationToken cancellationToken)
+        public async Task<RestoResponseDTO> Handle(RestoRequestDTO request, CancellationToken cancellationToken)
         {
+            RestoResponseDTO restoResponseDTO = new RestoResponseDTO();
             int retorno = 0;
 
             Resto resto = new Resto()
@@ -413,7 +414,8 @@ namespace TenedorYPalillos.BaseController
 
             if (retorno > 0)
             {
-                return Unit.Value;
+                //return Unit.Value;
+                return restoResponseDTO;
             }
             else
             {

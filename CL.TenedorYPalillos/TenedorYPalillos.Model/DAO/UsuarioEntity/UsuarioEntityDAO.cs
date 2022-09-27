@@ -1,16 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace TenedorYPalillos.Model.DAO.UsuarioEntity
 {
 
     [Serializable]
-    public class UsuarioEntityDAO :IdentityUser
+    public class UsuarioEntityDAO : IdentityUser
     {
 
         private string _nombre_1;
@@ -22,7 +17,11 @@ namespace TenedorYPalillos.Model.DAO.UsuarioEntity
 
         public UsuarioEntityDAO()
         {
-
+            Nombre_1 = string.Empty;
+            Nombre_2 = string.Empty;
+            Nombre_3 = string.Empty;
+            Apellido_1 = string.Empty;
+            Apellido_2 = string.Empty;
         }
 
 
@@ -31,8 +30,8 @@ namespace TenedorYPalillos.Model.DAO.UsuarioEntity
         public string Nombre_3 { get => _nombre_3; set => _nombre_3 = value; }
         public string Apellido_1 { get => _apellido_1; set => _apellido_1 = value; }
         public string Apellido_2 { get => _apellido_2; set => _apellido_2 = value; }
-    
-    
+
+
     }
 
 }

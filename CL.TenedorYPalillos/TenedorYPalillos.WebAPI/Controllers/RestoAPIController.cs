@@ -10,28 +10,16 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class RestoAPIController : ControllerBase
+    public class RestoAPIController : BaseAPIController
     {
 
-        private readonly IMediator _mediador;
-
-
-        public RestoAPIController(IMediator mediator)
-        {
-            _mediador = mediator;
-        }
-
-
-
-
-
         [HttpGet(Name = "GetAll", Order = 1)]
-        public async Task<ActionResult<List<RestoDTOResponse>>> Obtiene()
+        public async Task<ActionResult<List<RestoResponseDTO>>> Obtiene()
         {
 
             try
             {
-                return await new RestoController().CargaTodoResto(new RestoDTORequest()
+                return await new RestoController().CargaTodoResto(new RestoRequestDTO()
                 {
                     Sociedad = string.Empty
                 });
@@ -45,12 +33,12 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
 
         [HttpGet(template: "{sociedad}/{id}", Name = "GetID", Order = 2)]
-        public async Task<ActionResult<List<RestoDTOResponse>>> ObtieneID(string sociedad, int id)
+        public async Task<ActionResult<List<RestoResponseDTO>>> ObtieneID(string sociedad, int id)
         {
 
             try
             {
-                return await new RestoController().CargaRestoPorID(new RestoDTORequest()
+                return await new RestoController().CargaRestoPorID(new RestoRequestDTO()
                 {
                     Sociedad = sociedad,
                     ID = id
@@ -65,7 +53,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
 
         [HttpPost(Name = "UpdateID", Order = 3)]
-        public async Task<ActionResult<List<RestoDTOResponse>>> Actualiza(RestoDTORequest request)
+        public async Task<ActionResult<List<RestoResponseDTO>>> Actualiza(RestoRequestDTO request)
         {
 
             try
@@ -81,7 +69,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
 
         [HttpPut(Name = "Insert", Order = 4)]
-        public async Task<ActionResult<List<RestoDTOResponse>>> Crea(RestoDTORequest resto)
+        public async Task<ActionResult<List<RestoResponseDTO>>> Crea(RestoRequestDTO resto)
         {
 
             try
@@ -97,12 +85,12 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
 
         [HttpDelete(template: "{sociedad}/{id}", Name = "DeleteID", Order = 5)]
-        public async Task<ActionResult<List<RestoDTOResponse>>> Elimina(string sociedad, int id)
+        public async Task<ActionResult<List<RestoResponseDTO>>> Elimina(string sociedad, int id)
         {
 
             try
             {
-                return await new RestoController().EliminaRestoPorID(new RestoDTORequest()
+                return await new RestoController().EliminaRestoPorID(new RestoRequestDTO()
                 {
                     Sociedad = sociedad,
                     ID=id
@@ -123,7 +111,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
         //    try
         //    {
-        //        return await _mediador.Send(resto);
+        //        return await mediador.Send(resto);
         //    }
         //    catch (Exception ex)
         //    {

@@ -9,23 +9,23 @@ namespace TenedorYPalillos.Model.DTO.Resto
     #region "REQUEST"
 
 
-    public class RestoDTORequest : IRequest
+    public class RestoRequestDTO : IRequest<RestoResponseDTO>
     {
 
         private string _sociedad;
         private long _iD;
         private string _nombre;
         private string _descripcion;
-        private List<TipoRestoDTORequest> _listaTipoResto;
+        private List<TipoRestoRequestDTO> _listaTipoResto;
 
 
-        public RestoDTORequest()
+        public RestoRequestDTO()
         {
             Sociedad = string.Empty;
             ID = 0;
             Nombre = string.Empty;
             Descripcion = string.Empty;
-            TipoResto = new List<TipoRestoDTORequest>();
+            TipoResto = new List<TipoRestoRequestDTO>();
         }
 
 
@@ -33,18 +33,18 @@ namespace TenedorYPalillos.Model.DTO.Resto
         public long ID { get => _iD; set => _iD = value; }
         public string Nombre { get => _nombre; set => _nombre = value; }
         public string Descripcion { get => _descripcion; set => _descripcion = value; }
-        public List<TipoRestoDTORequest> TipoResto { get => _listaTipoResto; set => _listaTipoResto = value; }
+        public List<TipoRestoRequestDTO> TipoResto { get => _listaTipoResto; set => _listaTipoResto = value; }
 
 
 
         public override bool Equals(object? obj)
         {
-            return obj is RestoDTORequest request &&
+            return obj is RestoRequestDTO request &&
                    Sociedad == request.Sociedad &&
                    ID == request.ID &&
                    Nombre == request.Nombre &&
                    Descripcion == request.Descripcion &&
-                   EqualityComparer<List<TipoRestoDTORequest>>.Default.Equals(TipoResto, request.TipoResto);
+                   EqualityComparer<List<TipoRestoRequestDTO>>.Default.Equals(TipoResto, request.TipoResto);
         }
 
         public override int GetHashCode()
@@ -60,14 +60,14 @@ namespace TenedorYPalillos.Model.DTO.Resto
     }
 
 
-    public class TipoRestoDTORequest : IRequest
+    public class TipoRestoRequestDTO : IRequest
     {
 
         private long _iD;
         private string _nombre;
 
 
-        public TipoRestoDTORequest()
+        public TipoRestoRequestDTO()
         {
             ID = 0;
             Nombre = string.Empty;
@@ -81,7 +81,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
 
         public override bool Equals(object? obj)
         {
-            return obj is TipoRestoDTORequest request &&
+            return obj is TipoRestoRequestDTO request &&
                    ID == request.ID &&
                    Nombre == request.Nombre;
         }
@@ -108,36 +108,36 @@ namespace TenedorYPalillos.Model.DTO.Resto
     #region "RESPONSE"
 
 
-    public class RestoDTOResponse : IRequest
+    public class RestoResponseDTO : IRequest
     {
 
         private long _iD;
         private string _nombre;
         private string _descripcion;
-        private List<TipoRestoDTOResponse> _tipoResto;
+        private List<TipoRestoResponseDTO> _tipoResto;
 
 
-        public RestoDTOResponse()
+        public RestoResponseDTO()
         {
             ID = 0;
             Nombre = string.Empty;
             Descripcion = string.Empty;
-            TipoResto = new List<TipoRestoDTOResponse>();
+            TipoResto = new List<TipoRestoResponseDTO>();
         }
 
 
         public long ID { get => _iD; set => _iD = value; }
         public string Nombre { get => _nombre; set => _nombre = value; }
         public string Descripcion { get => _descripcion; set => _descripcion = value; }
-        public List<TipoRestoDTOResponse> TipoResto { get => _tipoResto; set => _tipoResto = value; }
+        public List<TipoRestoResponseDTO> TipoResto { get => _tipoResto; set => _tipoResto = value; }
 
         public override bool Equals(object? obj)
         {
-            return obj is RestoDTOResponse response &&
+            return obj is RestoResponseDTO response &&
                    ID == response.ID &&
                    Nombre == response.Nombre &&
                    Descripcion == response.Descripcion &&
-                   EqualityComparer<List<TipoRestoDTOResponse>>.Default.Equals(TipoResto, response.TipoResto);
+                   EqualityComparer<List<TipoRestoResponseDTO>>.Default.Equals(TipoResto, response.TipoResto);
         }
 
         public override int GetHashCode()
@@ -153,14 +153,14 @@ namespace TenedorYPalillos.Model.DTO.Resto
     }
 
 
-    public class TipoRestoDTOResponse : IRequest
+    public class TipoRestoResponseDTO : IRequest
     {
 
         private long _iD;
         private string _nombre;
 
 
-        public TipoRestoDTOResponse()
+        public TipoRestoResponseDTO()
         {
             ID = 0;
             Nombre = string.Empty;
@@ -174,7 +174,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
 
         public override bool Equals(object? obj)
         {
-            return obj is TipoRestoDTOResponse response &&
+            return obj is TipoRestoResponseDTO response &&
                    ID == response.ID &&
                    Nombre == response.Nombre;
         }
