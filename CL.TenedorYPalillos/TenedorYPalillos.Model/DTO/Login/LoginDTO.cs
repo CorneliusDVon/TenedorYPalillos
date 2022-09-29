@@ -23,7 +23,7 @@ namespace TenedorYPalillos.Model.DTO.Login
     }
 
 
-    public class LoginResponseDTO: IRequest
+    public class LoginResponseDTO
     {
 
         private string _iD;

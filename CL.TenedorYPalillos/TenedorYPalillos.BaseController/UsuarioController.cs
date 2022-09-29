@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using TenedorYPalillos.Connection.Context;
 using TenedorYPalillos.Model.Contract.Login;
-using TenedorYPalillos.Model.DAO.RestoEntity;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
-using TenedorYPalillos.Model.DTO.Resto;
 using TenedorYPalillos.Model.DTO.Usuario;
 
 
@@ -48,6 +46,13 @@ namespace TenedorYPalillos.BaseController
             {
 
                 existe = await _context.Users.Where(x => x.UserName == request.NombreUsuario).AnyAsync();
+
+                if (existe == true)
+                {
+                    throw new Exception("Este usuario ya existe.");
+                }
+
+                existe = await _context.Users.Where(x => x.NormalizedEmail == request.Email.ToUpper()).AnyAsync();
 
                 if (existe == true)
                 {
@@ -98,8 +103,6 @@ namespace TenedorYPalillos.BaseController
             }
 
         }
-
-
 
 
         public async Task<UsuarioResponseDTO> Trae(UsuarioRequestDTO request)

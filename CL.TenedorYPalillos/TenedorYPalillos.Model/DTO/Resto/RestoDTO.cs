@@ -60,7 +60,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
     }
 
 
-    public class TipoRestoRequestDTO : IRequest
+    public class TipoRestoRequestDTO
     {
 
         private long _iD;
@@ -108,7 +108,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
     #region "RESPONSE"
 
 
-    public class RestoResponseDTO : IRequest
+    public class RestoResponseDTO
     {
 
         private long _iD;
@@ -153,7 +153,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
     }
 
 
-    public class TipoRestoResponseDTO : IRequest
+    public class TipoRestoResponseDTO
     {
 
         private long _iD;
