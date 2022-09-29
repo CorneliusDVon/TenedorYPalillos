@@ -1,13 +1,20 @@
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
+using System.Text;
 using TenedorYPalillos.BaseController;
 using TenedorYPalillos.Connection;
 using TenedorYPalillos.Connection.Context;
+using TenedorYPalillos.Model.Contract.Login;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
+using TenedorYPalillos.Model.DTO.Security;
 
 
 namespace TenedorYPalillos.WebAPI
@@ -23,7 +30,12 @@ namespace TenedorYPalillos.WebAPI
 
 
             //AGREGA CONTROLADORAS/APIS/SERVICIOS AL CONTENEDOR.
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(opt => 
+            {
+                //SE AGREGA SEGMENTO PARA SOLICITAR AUTENTICACION ANTES DE UTILIZAR LOS RECURSOS DE LA API
+                AuthorizationPolicy policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            });
 
 
             //REGISTRO DE MEDIATR
@@ -32,16 +44,36 @@ namespace TenedorYPalillos.WebAPI
             //builder.Services.AddMediatR(typeof(RestoDTORequest));
             //builder.Services.AddOptions();
 
+         
+
+           SymmetricSecurityKey llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aBcDeFgHiJkLmNñOpQrStUvWxYz1620.."));
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(
+                    opt =>
+                    {
+                        opt.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = llave,
+                            ValidateAudience = false,
+                            ValidateIssuer = false
+                        };
+                    });
+
+
+            //REGISTRA INTERFAZ Y CLASE DE GENERACION DE TOKENS
+            builder.Services.AddScoped<IJWTGen, JWTGen>();
+
 
             //REGISTRA EL CONTEXTO DE LA BASE DE DATOS
             builder.Services.AddDbContext<TenedorYPalillosContext>();
 
 
             //REGISTRA IDENTITY USER
-            IdentityBuilder identityBuilder = builder.Services.AddIdentityCore<UsuarioEntityDAO>();
+            IdentityBuilder identityBuilder = builder.Services.AddIdentityCore<Usuario>();
             IdentityBuilder identity = new IdentityBuilder(identityBuilder.UserType, identityBuilder.Services);
             identity.AddEntityFrameworkStores<TenedorYPalillosContext>();
-            identity.AddSignInManager<SignInManager<UsuarioEntityDAO>>();
+            identity.AddSignInManager<SignInManager<Usuario>>();
             builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
 
 
@@ -62,14 +94,14 @@ namespace TenedorYPalillos.WebAPI
 
                 IServiceProvider serices = enviroment.ServiceProvider;
 
-                UserManager<UsuarioEntityDAO> userManager = serices.GetRequiredService<UserManager<UsuarioEntityDAO>>();
+                UserManager<Usuario> userManager = serices.GetRequiredService<UserManager<Usuario>>();
                 TenedorYPalillosContext context = serices.GetRequiredService<TenedorYPalillosContext>();
 
                 //GENERA EL MODELO DE DATOS A  NIVEL DE DB
                 context.Database.Migrate();
-                
+
                 //GENERA E INSERTA USUARIO ROOT AL CONTEXTO DE LA BASE DE DATOS
-                ROOT.CreaUsuarioROOT(context,userManager).Wait();
+                ROOT.CreaUsuarioROOT(context, userManager).Wait();
 
             }
 
@@ -89,6 +121,7 @@ namespace TenedorYPalillos.WebAPI
 
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();

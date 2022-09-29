@@ -9,13 +9,13 @@ namespace TenedorYPalillos.Connection
     public class ROOT
     {
 
-        public static async Task CreaUsuarioROOT(TenedorYPalillosContext tenedorYPalillosContext, UserManager<UsuarioEntityDAO> userManager)
+        public static async Task CreaUsuarioROOT(TenedorYPalillosContext tenedorYPalillosContext, UserManager<Usuario> userManager)
         {
 
             if (userManager.Users.Any() == false)
             {
 
-                UsuarioEntityDAO usuarioROOT = new UsuarioEntityDAO();
+                Usuario usuarioROOT = new Usuario();
                 usuarioROOT.Nombre_1 = "ROOT_USER";
                 usuarioROOT.UserName = "ROOT";
 

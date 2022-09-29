@@ -19,6 +19,7 @@ namespace TenedorYPalillos.Model.DTO.Login
 
         public string Usuario { get => _usuario; set => _usuario = value; }
         public string Password { get => _password; set => _password = value; }
+
     }
 
 
@@ -30,6 +31,7 @@ namespace TenedorYPalillos.Model.DTO.Login
         private string _password;
         private int _contadorFallos;
         private bool _dobleFactor;
+        private string _token;
 
 
         public LoginResponseDTO()
@@ -39,6 +41,7 @@ namespace TenedorYPalillos.Model.DTO.Login
             Password = string.Empty;
             ContadorFallos = 0;
             DobleFactor = false;
+            Token = "NO_VALID";
         }
 
 
@@ -47,6 +50,7 @@ namespace TenedorYPalillos.Model.DTO.Login
         public string Password { get => _password; set => _password = value; }
         public int ContadorFallos { get => _contadorFallos; set => _contadorFallos = value; }
         public bool DobleFactor { get => _dobleFactor; set => _dobleFactor = value; }
+        public string Token { get => _token; set => _token = value; }
 
     }
 

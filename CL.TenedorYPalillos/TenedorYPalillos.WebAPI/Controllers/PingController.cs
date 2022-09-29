@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TenedorYPalillos.Model.DTO.Log;
 using TenedorYPalillos.Utils;
@@ -6,6 +7,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
 {
 
     [ApiController]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     public class PingController : ControllerBase
     {

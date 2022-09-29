@@ -7,13 +7,14 @@ using TenedorYPalillos.Model.DAO.UsuarioEntity;
 namespace TenedorYPalillos.Connection.Context
 {
 
-    public class TenedorYPalillosContext : IdentityDbContext<UsuarioEntityDAO>
+    public class TenedorYPalillosContext : IdentityDbContext<Usuario>
     {        
 
         private string _rutSociedad;
         private DbSet<Resto> _resto;
         private DbSet<Resto_Tipo_Resto> _restoTipoResto;
         private DbSet<Tipo_Resto> _tipoResto;
+        private DbSet<Usuario> _usuario;
 
 
         public TenedorYPalillosContext()
@@ -27,6 +28,9 @@ namespace TenedorYPalillos.Connection.Context
         public DbSet<Resto> Resto { get => _resto; set => _resto = value; }
         public DbSet<Resto_Tipo_Resto> Resto_Tipo_Resto { get => _restoTipoResto; set => _restoTipoResto = value; }
         public DbSet<Tipo_Resto> Tipo_Resto { get => _tipoResto; set => _tipoResto = value; }
+        public DbSet<Usuario> Usuario { get => _usuario; set => _usuario = value; }
+
+
 
 
 

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TenedorYPalillos.BaseController;
 using TenedorYPalillos.Model.DAO.RestoEntity;

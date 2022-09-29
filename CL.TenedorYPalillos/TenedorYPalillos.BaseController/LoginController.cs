@@ -4,18 +4,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
 using TenedorYPalillos.Model.DTO.Login;
-
+using TenedorYPalillos.Model.Contract.Login;
 
 namespace TenedorYPalillos.BaseController
 {
 
-    public class LoginController: IRequestHandler<LoginRequestDTO, LoginResponseDTO> 
+    public class LoginController : IRequestHandler<LoginRequestDTO, LoginResponseDTO>
     {
 
 
         private List<LoginResponseDTO> _loginResponseDTOList;
-        private readonly UserManager<UsuarioEntityDAO> _userManager;
-        private readonly SignInManager<UsuarioEntityDAO> _signInManager;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signInManager;
+        private readonly IJWTGen _jwtGen;
 
 
         public LoginController()
@@ -24,10 +25,11 @@ namespace TenedorYPalillos.BaseController
         }
 
 
-        public LoginController(UserManager<UsuarioEntityDAO> userManager, SignInManager<UsuarioEntityDAO> signInManager)
+        public LoginController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, IJWTGen jwtGen)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _jwtGen = jwtGen;
         }
 
 
@@ -43,7 +45,7 @@ namespace TenedorYPalillos.BaseController
         {
 
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
-            UsuarioEntityDAO usuario;
+            Usuario usuario;
 
             usuario = await _userManager.FindByNameAsync(request.Usuario);
 
@@ -75,6 +77,7 @@ namespace TenedorYPalillos.BaseController
                 loginResponseDTO.Password = usuario.PasswordHash;
                 loginResponseDTO.DobleFactor = usuario.TwoFactorEnabled;
                 loginResponseDTO.ContadorFallos = usuario.AccessFailedCount;
+                loginResponseDTO.Token = _jwtGen.GeneraJWT(usuario);
 
 
                 return loginResponseDTO;

@@ -7,7 +7,7 @@ namespace TenedorYPalillos.Model.DAO.LoginEntity
 {
 
     [Serializable]
-    public  class LoginEntityDAO
+    public class LoginEntityDAO
     {
 
         private string _iD;
