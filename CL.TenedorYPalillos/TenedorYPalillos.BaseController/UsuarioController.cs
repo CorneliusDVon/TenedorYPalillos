@@ -40,6 +40,7 @@ namespace TenedorYPalillos.BaseController
         //CREA USUARIO
         public async Task<UsuarioResponseDTO> Handle(UsuarioRequestDTO request, CancellationToken cancellationToken)
         {
+
             bool existe = false;
 
             try

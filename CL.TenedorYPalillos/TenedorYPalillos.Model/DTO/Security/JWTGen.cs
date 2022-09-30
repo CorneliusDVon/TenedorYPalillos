@@ -4,9 +4,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TenedorYPalillos.Model.Contract.Login;
-using TenedorYPalillos.Model.DAO.UsuarioEntity;
-using TenedorYPalillos.Model.DTO.Login;
-using TenedorYPalillos.Model.DTO.Usuario;
 
 
 namespace TenedorYPalillos.Model.DTO.Security
@@ -22,6 +19,7 @@ namespace TenedorYPalillos.Model.DTO.Security
                 new Claim(JwtRegisteredClaimNames.NameId, usuario.UserName),
                 new Claim(JwtRegisteredClaimNames.FamilyName, usuario.Nombre_1)
             };
+
             SymmetricSecurityKey llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aBcDeFgHiJkLmNñOpQrStUvWxYz1620.."));
             SigningCredentials credenciales = new SigningCredentials(llave, SecurityAlgorithms.HmacSha512Signature);
 
