@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 using TenedorYPalillos.BaseController;
 using TenedorYPalillos.Connection;
 using TenedorYPalillos.Connection.Context;
-using TenedorYPalillos.Model.Contract.Login;
+using TenedorYPalillos.Model.Contract.Security;
+using TenedorYPalillos.Model.Contract.SessionUsuario;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
-using TenedorYPalillos.Model.DTO.Security;
+using TenedorYPalillos.Model.Security;
 
 
 namespace TenedorYPalillos.WebAPI
@@ -61,19 +61,20 @@ namespace TenedorYPalillos.WebAPI
                     });
 
 
-            //REGISTRA INTERFAZ Y CLASE DE GENERACION DE TOKENS
+            //REGISTRA INTERFAZ Y CLASES
             builder.Services.AddScoped<IJWTGen, JWTGen>();
-
+            builder.Services.AddScoped<ISessionUsuario, SessionUsuario>();
+            
 
             //REGISTRA EL CONTEXTO DE LA BASE DE DATOS
             builder.Services.AddDbContext<TenedorYPalillosContext>();
 
 
             //REGISTRA IDENTITY USER
-            IdentityBuilder identityBuilder = builder.Services.AddIdentityCore<Usuario>();
+            IdentityBuilder identityBuilder = builder.Services.AddIdentityCore<User>();
             IdentityBuilder identity = new IdentityBuilder(identityBuilder.UserType, identityBuilder.Services);
             identity.AddEntityFrameworkStores<TenedorYPalillosContext>();
-            identity.AddSignInManager<SignInManager<Usuario>>();
+            identity.AddSignInManager<SignInManager<User>>();
             builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
 
 
@@ -94,7 +95,7 @@ namespace TenedorYPalillos.WebAPI
 
                 IServiceProvider serices = enviroment.ServiceProvider;
 
-                UserManager<Usuario> userManager = serices.GetRequiredService<UserManager<Usuario>>();
+                UserManager<User> userManager = serices.GetRequiredService<UserManager<User>>();
                 TenedorYPalillosContext context = serices.GetRequiredService<TenedorYPalillosContext>();
 
                 //GENERA EL MODELO DE DATOS A  NIVEL DE DB

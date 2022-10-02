@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using System;
+using TenedorYPalillos.Model.Contract;
 
 
 namespace TenedorYPalillos.Model.DTO.Usuario
 {
 
-    public class UsuarioRequestDTO : IRequest<UsuarioResponseDTO>
+    public class UsuarioRequestDTO : BaseRequest, IRequest<UsuarioResponseDTO>
     {
 
         private string _sociedad;
@@ -45,6 +46,7 @@ namespace TenedorYPalillos.Model.DTO.Usuario
         public string Email { get => _email; set => _email = value; }
         public string Sociedad { get => _sociedad; set => _sociedad = value; }
         public string Rut { get => _rut; set => _rut = value; }
+
 
     }
 

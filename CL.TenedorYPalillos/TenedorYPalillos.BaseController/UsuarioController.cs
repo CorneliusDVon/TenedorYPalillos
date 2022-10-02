@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using TenedorYPalillos.Connection.Context;
-using TenedorYPalillos.Model.Contract.Login;
+using TenedorYPalillos.Model.Contract.Security;
+using TenedorYPalillos.Model.Contract.SessionUsuario;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
 using TenedorYPalillos.Model.DTO.Usuario;
 
@@ -16,29 +17,62 @@ namespace TenedorYPalillos.BaseController
 
 
         private readonly TenedorYPalillosContext _context;
-        private readonly UserManager<Usuario> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IJWTGen _gen;
+        private readonly ISessionUsuario _sessionUsuario;
 
 
-
-        public UsuarioController()
-        {
-
-        }
-
-        public UsuarioController(TenedorYPalillosContext context, UserManager<Usuario> userManager, IJWTGen gen)
+        public UsuarioController(TenedorYPalillosContext context, UserManager<User> userManager, IJWTGen gen, ISessionUsuario sessionUsuario)
         {
             _context = context;
             _userManager = userManager;
             _gen = gen;
+            _sessionUsuario = sessionUsuario;
         }
 
 
 
 
 
-        //CREA USUARIO
         public async Task<UsuarioResponseDTO> Handle(UsuarioRequestDTO request, CancellationToken cancellationToken)
+        {
+
+            string proceso = request.TraeAccion();
+
+
+            return proceso switch
+            {
+                "CONSULTA_USUARIO_SESSION" => await ConsultaUsuarioSession(),
+                "CREA_USUARIO" => await CreaUsuario(request),
+                _ => throw new Exception("No se ha especificado una funcion a la operacion solicitada."),
+            };
+
+        }
+
+
+        
+        private async Task<UsuarioResponseDTO> ConsultaUsuarioSession()
+        {
+
+            User usuario = await _userManager.FindByNameAsync(_sessionUsuario.ObtenerSession());
+
+
+            return new UsuarioResponseDTO()
+            {
+                NombreUsuario = usuario.UserName,
+                Nombre1 = usuario.Nombre_1,
+                Nombre2 = usuario.Nombre_2,
+                Nombre3 = usuario.Nombre_3,
+                Apellido1 = usuario.Apellido_1,
+                Apellido2 = usuario.Apellido_2,
+                Email = usuario.Email,
+            };
+
+        }
+
+
+
+        private async Task<UsuarioResponseDTO> CreaUsuario(UsuarioRequestDTO request)
         {
 
             bool existe = false;
@@ -60,7 +94,7 @@ namespace TenedorYPalillos.BaseController
                     throw new Exception("Este usuario ya existe.");
                 }
 
-                Usuario usuario = new Usuario();
+                User usuario = new User();
                 usuario.Nombre_1 = request.Nombre1;
                 usuario.Nombre_2 = request.Nombre2;
                 usuario.Nombre_3 = request.Nombre3;
@@ -70,7 +104,7 @@ namespace TenedorYPalillos.BaseController
                 usuario.UserName = request.NombreUsuario;
                 usuario.PhoneNumber = request.Sociedad;
 
-                var unit = await _userManager.CreateAsync(usuario, request.Contraseña);
+                IdentityResult unit = await _userManager.CreateAsync(usuario,request.Contraseña);
 
                 if (unit.Succeeded == false)
                 {
@@ -106,51 +140,9 @@ namespace TenedorYPalillos.BaseController
         }
 
 
-        public async Task<UsuarioResponseDTO> Trae(UsuarioRequestDTO request)
-        {
-
-            List<UsuarioResponseDTO> response = new List<UsuarioResponseDTO>();
-            bool existe = false;
-
-            try
-            {
-
-                using (TenedorYPalillosContext db = new TenedorYPalillosContext())
-                {
-
-                    db.RutSociedad = request.Sociedad.Trim();
-
-                    existe = await db.Users.Where(x => x.UserName == request.NombreUsuario).AnyAsync();
-
-                    if (!existe)
-                    {
-                        throw new Exception("Este usuario no existe.");
-                    }
-
-                    Usuario usuario = db.Users.Single(x => x.UserName == request.NombreUsuario);
-
-                    return new UsuarioResponseDTO
-                    {
-                        Nombre1 = usuario.Nombre_1,
-                        Nombre2 = usuario.Nombre_2,
-                        Nombre3 = usuario.Nombre_3,
-                        Apellido1 = usuario.Apellido_1,
-                        Apellido2 = usuario.Apellido_2,
-                        Email = usuario.Email,
-                        NombreUsuario = usuario.UserName,
-                        Sociedad = usuario.PhoneNumber,
-                    };
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("No se ha podido consultar el usuario.");
-            }
-
-        }
 
 
 
     }
+
 }

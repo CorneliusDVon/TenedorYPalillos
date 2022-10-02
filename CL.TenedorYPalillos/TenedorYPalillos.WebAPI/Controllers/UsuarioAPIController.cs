@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using TenedorYPalillos.BaseController;
-using TenedorYPalillos.Connection.Context;
-using TenedorYPalillos.Model.DAO.UsuarioEntity;
-using TenedorYPalillos.Model.DTO.Resto;
+﻿using Microsoft.AspNetCore.Mvc;
 using TenedorYPalillos.Model.DTO.Usuario;
 
 
@@ -16,13 +10,14 @@ namespace TenedorYPalillos.WebAPI.Controllers
     public class UsuarioAPIController : BaseAPIController
     {
 
-        [HttpGet(Name = "Get", Order = 1)]
-        public async Task<ActionResult<UsuarioResponseDTO>> TraeUsuario(UsuarioRequestDTO request)
+        [HttpGet("ConsultaUsuarioSession")]
+        public async Task<ActionResult<UsuarioResponseDTO>> ConsultaUsuarioSession(UsuarioRequestDTO request)
         {
 
             try
             {
-                return await new UsuarioController().Trae(request);
+                request.DefineAccion("CONSULTA_USUARIO_SESSION");
+                return await mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -33,12 +28,13 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
 
 
-        [HttpPost(Name = "Get", Order = 1)]
+        [HttpPost("CreaUsuario")]
         public async Task<ActionResult<UsuarioResponseDTO>> CreaUsuario(UsuarioRequestDTO request)
         {
 
             try
             {
+                request.DefineAccion("CREA_USUARIO");
                 return await mediator.Send(request);
             }
             catch (Exception ex)

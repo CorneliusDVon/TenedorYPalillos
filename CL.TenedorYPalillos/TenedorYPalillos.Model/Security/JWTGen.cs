@@ -3,16 +3,17 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TenedorYPalillos.Model.Contract.Login;
+using TenedorYPalillos.Model.Contract.Security;
+using TenedorYPalillos.Model.DAO.UsuarioEntity;
 
 
-namespace TenedorYPalillos.Model.DTO.Security
+namespace TenedorYPalillos.Model.Security
 {
 
     public class JWTGen : IJWTGen
     {
 
-        public string GeneraJWT(DAO.UsuarioEntity.Usuario usuario)
+        public string GeneraJWT(User usuario)
         {
 
             List<Claim> claims = new List<Claim> {
@@ -38,6 +39,7 @@ namespace TenedorYPalillos.Model.DTO.Security
             return manejador.WriteToken(token).Trim();
 
         }
+
 
     }
 

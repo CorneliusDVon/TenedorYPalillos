@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
 using TenedorYPalillos.Model.DTO.Login;
-using TenedorYPalillos.Model.Contract.Login;
+using TenedorYPalillos.Model.Contract.Security;
 
 namespace TenedorYPalillos.BaseController
 {
@@ -14,8 +14,8 @@ namespace TenedorYPalillos.BaseController
 
 
         private List<LoginResponseDTO> _loginResponseDTOList;
-        private readonly UserManager<Usuario> _userManager;
-        private readonly SignInManager<Usuario> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IJWTGen _jwtGen;
 
 
@@ -25,7 +25,7 @@ namespace TenedorYPalillos.BaseController
         }
 
 
-        public LoginController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, IJWTGen jwtGen)
+        public LoginController(UserManager<User> userManager, SignInManager<User> signInManager, IJWTGen jwtGen)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,7 +45,7 @@ namespace TenedorYPalillos.BaseController
         {
 
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
-            Usuario usuario;
+            User usuario;
 
             usuario = await _userManager.FindByNameAsync(request.Usuario);
 

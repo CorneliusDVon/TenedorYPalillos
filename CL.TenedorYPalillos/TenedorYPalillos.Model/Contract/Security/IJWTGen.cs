@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
 
 
-namespace TenedorYPalillos.Model.Contract.Login
+namespace TenedorYPalillos.Model.Contract.Security
 {
 
     public interface IJWTGen
     {
 
-        string GeneraJWT(Usuario usuario);
+        string GeneraJWT(User usuario);
 
     }
 

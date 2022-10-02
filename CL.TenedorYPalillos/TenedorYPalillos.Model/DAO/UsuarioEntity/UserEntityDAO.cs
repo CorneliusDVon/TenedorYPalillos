@@ -7,7 +7,7 @@ namespace TenedorYPalillos.Model.DAO.UsuarioEntity
 {
 
     [Serializable]
-    public class Usuario : IdentityUser
+    public class User : IdentityUser
     {
 
         private string _nombre_1;
@@ -17,7 +17,7 @@ namespace TenedorYPalillos.Model.DAO.UsuarioEntity
         private string _apellido_2;
 
 
-        public Usuario()
+        public User()
         {
             Nombre_1 = string.Empty;
             Nombre_2 = string.Empty;
