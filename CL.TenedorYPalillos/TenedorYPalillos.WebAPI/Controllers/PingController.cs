@@ -21,7 +21,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
         }
 
 
-        [HttpGet(Name = "Ping")]
+        [HttpGet("ObtieneURL")]
         public ActionResult<string> Get()
         {
 

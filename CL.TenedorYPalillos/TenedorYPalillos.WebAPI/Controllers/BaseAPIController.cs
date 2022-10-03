@@ -13,7 +13,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
 
         private IMediator _mediador;
 
-        protected IMediator mediator => _mediador ?? (_mediador = HttpContext.RequestServices.GetService<IMediator>());
+        protected IMediator Mediator => _mediador ?? (_mediador = HttpContext.RequestServices.GetService<IMediator>());
 
     }
 }

@@ -5,7 +5,7 @@ using System;
 namespace TenedorYPalillos.Model.DTO.Login
 {
 
-    public class LoginRequestDTO : IRequest<LoginResponseDTO>
+    public class LoginRequestDTO : BaseRequest, IRequest<LoginResponseDTO>
     {
 
         private string _usuario;

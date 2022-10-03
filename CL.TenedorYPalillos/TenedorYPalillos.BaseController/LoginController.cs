@@ -1,10 +1,9 @@
-﻿using TenedorYPalillos.Connection.Context;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using TenedorYPalillos.Model.DAO.UsuarioEntity;
 using TenedorYPalillos.Model.DTO.Login;
 using TenedorYPalillos.Model.Contract.Security;
+
 
 namespace TenedorYPalillos.BaseController
 {
@@ -12,17 +11,9 @@ namespace TenedorYPalillos.BaseController
     public class LoginController : IRequestHandler<LoginRequestDTO, LoginResponseDTO>
     {
 
-
-        private List<LoginResponseDTO> _loginResponseDTOList;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IJWTGen _jwtGen;
-
-
-        public LoginController()
-        {
-            LoginResponseDTOList = new List<LoginResponseDTO>();
-        }
 
 
         public LoginController(UserManager<User> userManager, SignInManager<User> signInManager, IJWTGen jwtGen)
@@ -34,15 +25,28 @@ namespace TenedorYPalillos.BaseController
 
 
 
-        private List<LoginResponseDTO> LoginResponseDTOList { get => _loginResponseDTOList; set => _loginResponseDTOList = value; }
-
-
-
-
 
 
         public async Task<LoginResponseDTO> Handle(LoginRequestDTO request, CancellationToken cancellationToken)
         {
+            
+            string proceso = request.TraeAccion();
+
+            return proceso switch
+            {
+                "INICIA_SESSION" => await InicaSession(request),
+                _ => throw new Exception("No se ha especificado una funcion a la operacion solicitada."),
+            };
+
+        }
+
+
+
+
+
+        private async Task<LoginResponseDTO> InicaSession(LoginRequestDTO request)
+        {
+
 
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
             User usuario;

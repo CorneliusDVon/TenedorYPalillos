@@ -61,7 +61,7 @@ namespace TenedorYPalillos.WebAPI
                     });
 
 
-            //REGISTRA INTERFAZ Y CLASES
+            //REGISTRA INTERFAZ DE CLASES
             builder.Services.AddScoped<IJWTGen, JWTGen>();
             builder.Services.AddScoped<ISessionUsuario, SessionUsuario>();
             

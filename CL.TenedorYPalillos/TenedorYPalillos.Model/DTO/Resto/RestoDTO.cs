@@ -9,7 +9,7 @@ namespace TenedorYPalillos.Model.DTO.Resto
     #region "REQUEST"
 
 
-    public class RestoRequestDTO : IRequest<RestoResponseDTO>
+    public class RestoRequestDTO : BaseRequest, IRequest<List<RestoResponseDTO>>
     {
 
         private string _sociedad;

@@ -15,7 +15,6 @@ namespace TenedorYPalillos.BaseController
     public class UsuarioController : IRequestHandler<UsuarioRequestDTO, UsuarioResponseDTO>
     {
 
-
         private readonly TenedorYPalillosContext _context;
         private readonly UserManager<User> _userManager;
         private readonly IJWTGen _gen;
@@ -50,6 +49,8 @@ namespace TenedorYPalillos.BaseController
         }
 
 
+
+
         
         private async Task<UsuarioResponseDTO> ConsultaUsuarioSession()
         {
@@ -69,7 +70,6 @@ namespace TenedorYPalillos.BaseController
             };
 
         }
-
 
 
         private async Task<UsuarioResponseDTO> CreaUsuario(UsuarioRequestDTO request)
@@ -138,9 +138,6 @@ namespace TenedorYPalillos.BaseController
             }
 
         }
-
-
-
 
 
     }

@@ -12,13 +12,14 @@ namespace TenedorYPalillos.WebAPI.Controllers
     public class LoginAPIController : BaseAPIController
     {
 
-        [HttpPost(Name = "Login", Order = 1)]
+        [HttpPost("Login")]
         public async Task<ActionResult<LoginResponseDTO>> IniciaSesion(LoginRequestDTO request)
         {
 
             try
             {
-                return await mediator.Send(request);
+                request.DefineAccion("INICIA_SESSION");
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {

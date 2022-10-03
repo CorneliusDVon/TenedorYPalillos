@@ -17,7 +17,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
             try
             {
                 request.DefineAccion("CONSULTA_USUARIO_SESSION");
-                return await mediator.Send(request);
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -27,7 +27,6 @@ namespace TenedorYPalillos.WebAPI.Controllers
         }
 
 
-
         [HttpPost("CreaUsuario")]
         public async Task<ActionResult<UsuarioResponseDTO>> CreaUsuario(UsuarioRequestDTO request)
         {
@@ -35,7 +34,7 @@ namespace TenedorYPalillos.WebAPI.Controllers
             try
             {
                 request.DefineAccion("CREA_USUARIO");
-                return await mediator.Send(request);
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -43,7 +42,6 @@ namespace TenedorYPalillos.WebAPI.Controllers
             }
 
         }
-
 
 
     }

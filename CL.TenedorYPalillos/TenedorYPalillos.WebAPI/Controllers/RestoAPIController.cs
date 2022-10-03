@@ -14,16 +14,14 @@ namespace TenedorYPalillos.WebAPI.Controllers
     public class RestoAPIController : BaseAPIController
     {
 
-        [HttpGet(Name = "GetAll", Order = 1)]
-        public async Task<ActionResult<List<RestoResponseDTO>>> Obtiene()
+        [HttpGet("Trae")]
+        public async Task<ActionResult<List<RestoResponseDTO>>> Obtiene(RestoRequestDTO request)
         {
 
             try
             {
-                return await new RestoController().CargaTodoResto(new RestoRequestDTO()
-                {
-                    Sociedad = string.Empty
-                });
+                request.DefineAccion("CARGA_RESTO");
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -33,17 +31,15 @@ namespace TenedorYPalillos.WebAPI.Controllers
         }
 
 
-        [HttpGet(template: "{sociedad}/{id}", Name = "GetID", Order = 2)]
+        [HttpGet(template: "{sociedad}/{id}", Name = "TraeId")]
         public async Task<ActionResult<List<RestoResponseDTO>>> ObtieneID(string sociedad, int id)
         {
 
             try
             {
-                return await new RestoController().CargaRestoPorID(new RestoRequestDTO()
-                {
-                    Sociedad = sociedad,
-                    ID = id
-                });
+                RestoRequestDTO request = new RestoRequestDTO() { Sociedad = sociedad, ID = id };
+                request.DefineAccion("CARGA_RESTO_ID");
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -53,13 +49,14 @@ namespace TenedorYPalillos.WebAPI.Controllers
         }
 
 
-        [HttpPost(Name = "UpdateID", Order = 3)]
+        [HttpPost("ActualizaId")]
         public async Task<ActionResult<List<RestoResponseDTO>>> Actualiza(RestoRequestDTO request)
         {
 
             try
             {
-                return await new RestoController().ActualizaRestoPorID(request);
+                request.DefineAccion("ACTUALIZA_RESTO_ID");
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -69,13 +66,14 @@ namespace TenedorYPalillos.WebAPI.Controllers
         }
 
 
-        [HttpPut(Name = "Insert", Order = 4)]
-        public async Task<ActionResult<List<RestoResponseDTO>>> Crea(RestoRequestDTO resto)
+        [HttpPut("Crea")]
+        public async Task<ActionResult<List<RestoResponseDTO>>> Crea(RestoRequestDTO request)
         {
 
             try
             {
-                return await new RestoController().CreaResto(resto);
+                request.DefineAccion("CREA_RESTO");
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -85,17 +83,21 @@ namespace TenedorYPalillos.WebAPI.Controllers
         }
 
 
-        [HttpDelete(template: "{sociedad}/{id}", Name = "DeleteID", Order = 5)]
+        [HttpDelete(template: "{sociedad}/{id}",Name = "Elimina")]
         public async Task<ActionResult<List<RestoResponseDTO>>> Elimina(string sociedad, int id)
         {
 
             try
             {
-                return await new RestoController().EliminaRestoPorID(new RestoRequestDTO()
+                RestoRequestDTO request = new RestoRequestDTO()
                 {
                     Sociedad = sociedad,
-                    ID=id
-                });
+                    ID = id
+                };
+
+                request.DefineAccion("ELIMINA_RESTO_ID");
+
+                return await Mediator.Send(request);
             }
             catch (Exception ex)
             {
@@ -103,24 +105,6 @@ namespace TenedorYPalillos.WebAPI.Controllers
             }
 
         }
-
-
-
-        //[HttpPut(Name = "Crea Nuevo Restaurant", Order = 4)]
-        //public async Task<Unit> CreaHandler(RestoDTORequest resto)
-        //{
-
-        //    try
-        //    {
-        //        return await mediador.Send(resto);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-
-        //}
-
 
 
     }
